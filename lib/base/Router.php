@@ -44,7 +44,7 @@ class Router
 	
 	/**
 	 * Tests if a route has parameters
-	 * @param string $route the route (uri) to test
+	 * @param string $route the route (uri) to task
 	 * @return boolean
 	 */
 	public function hasParameters($route)

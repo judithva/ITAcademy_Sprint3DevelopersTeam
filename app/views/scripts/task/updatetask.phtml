@@ -1,0 +1,81 @@
+<?php
+include(ROOT_PATH . '/app/views/header.php');
+
+$idTarea = $_GET['id'];
+ //Recogemos el valor del controller accediendo al array data de la clase view
+$theTask = $this->_data['updatetask'];
+ ?>
+
+<!-- INI Codigo HTML -->
+<div class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl w-full space-y-8">
+      <div>
+        <img class="mx-auto h-12 w-auto" src="./images/galloList.png" alt="Workflow">
+        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Listado de tareas</h2>
+  
+      </div>
+      <form action="showtask" method="get">
+        <div class="border-gray-300 rounded-md">
+        <label class="block text-gray-700 dark:text-gray-400 mt-4 mb-4 text-lg "><span>Usuario</span>
+            <div class="newtask bg-white px-4 py-3 mt-2">
+            <input disabled name="usuario" class="block w-full text-sm dark:text-gray-300 form-textarea focus:outline-none focus:border-purple-400 dark:border-gray-600 dark:focus:border-gray-600 dark:bg-gray-700 dark:focus:shadow-outline-gray focus:shadow-outline-purple mt-1" type="text" value="<?= $theTask['usuario'] ?>"/>
+            </div>
+          <label class="block text-gray-700 dark:text-gray-400 mt-4 mb-4 text-lg "><span>Título</span>
+            <div class="newtask bg-white px-4 py-3 mt-2">
+            <input name="titulo" class="block w-full text-sm dark:text-gray-300 form-textarea focus:outline-none focus:border-purple-400 dark:border-gray-600 dark:focus:border-gray-600 dark:bg-gray-700 dark:focus:shadow-outline-gray focus:shadow-outline-purple mt-1" type="text" value="<?= $theTask['titulo'] ?>"/>
+            </div>
+
+          <label class="block text-gray-700 dark:text-gray-400 mt-4 mb-4 text-lg "><span>Descripción</span>
+          <div class="newtask bg-white px-4 py-3 mt-2">
+              <textarea name="descripcion" class="block w-full text-sm dark:text-gray-300 form-textarea focus:outline-none focus:border-purple-400 dark:border-gray-600 dark:focus:border-gray-600 dark:bg-gray-700 dark:focus:shadow-outline-gray focus:shadow-outline-purple mt-1" rows="3" ><?= $theTask['descripcion'] ?></textarea></label>
+          </div>
+          <label class="block text-gray-700 dark:text-gray-400 mt-4 mb-4 text-lg "><span>Estado</span>
+          <div class="newtask bg-white px-4 py-3 mt-2">
+            <select name="estado" id="estado" class="block w-full text-sm dark:text-gray-300 form-textarea focus:outline-none focus:border-purple-400 dark:border-gray-600 dark:focus:border-gray-600 dark:bg-gray-700 dark:focus:shadow-outline-gray focus:shadow-outline-purple mt-1">
+            <?php
+            //Obtenemos todos los estados disponibles
+            $estados = ['Pendiente', 'En curso', 'Completado'];
+            foreach ($estados as $estado){
+              echo '<option value="'.$estado.'" selected="'. $theTask['estado'] .'">'.$estado.'</option>';
+            }
+            
+            ?>
+            </select>    
+          </div>
+          <label class="block text-gray-700 dark:text-gray-400 mt-4 mb-4 text-lg "><span>Fecha Creación</span>
+          <div class="newtask bg-white px-4 py-3 mt-2">
+              <input disabled type="text" name="fec_creacion" class="block w-full text-sm dark:text-gray-300 form-textarea focus:outline-none focus:border-purple-400 dark:border-gray-600 dark:focus:border-gray-600 dark:bg-gray-700 dark:focus:shadow-outline-gray focus:shadow-outline-purple mt-1" rows="3" value="<?= $theTask['fec_creacion'] ?>"></label>
+          </div>
+
+          <label class="block text-gray-700 dark:text-gray-400 mt-4 mb-4 text-lg "><span>Fecha Modificación</span>
+          <div class="newtask bg-white px-4 py-3 mt-2">
+              <input disabled type="text" name="fec_modif" class="block w-full text-sm dark:text-gray-300 form-textarea focus:outline-none focus:border-purple-400 dark:border-gray-600 dark:focus:border-gray-600 dark:bg-gray-700 dark:focus:shadow-outline-gray focus:shadow-outline-purple mt-1" rows="3" value="<?= date('Y-m-d') ?>"></label>
+          </div>
+
+          <label class="block text-gray-700 dark:text-gray-400 mt-4 mb-4 text-lg "><span>Fecha Finalización</span>
+            <div class="newtask bg-white px-4 py-3 mt-2">
+              <input type="date" name="fec_fintarea" class="block w-full text-sm dark:text-gray-300 form-textarea focus:outline-none focus:border-purple-400 dark:border-gray-600 dark:focus:border-gray-600 dark:bg-gray-700 dark:focus:shadow-outline-gray focus:shadow-outline-purple mt-1" rows="3" value="<?= $theTask['fec_fintarea'] ?>" >
+          </label>
+          </div>
+
+          <input type="hidden" name="op" value="update">
+          <input type="hidden" name="id" value="<?= $theTask['idTareas'] ?>">
+        </div>
+
+        <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-2">
+          <button onclick="window.location.href='showtask'" type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-pink-500/50 text-sm font-medium rounded-md text-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Cancelar
+          </button>
+          <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Actualizar Tarea
+          </button>
+        </div>
+      </form>
+      
+    </div>
+  </div>
+<!-- FIN - Codigo HTML -->
+
+<?php
+include(ROOT_PATH . '/app/views/footer.php');
+?>
