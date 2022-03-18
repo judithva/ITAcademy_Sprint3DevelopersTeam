@@ -1,9 +1,7 @@
 <?php
 
 class TaskJsonModel{
-    public const ESTADO_PDTE = 'Pendiente';
-    public const ESTADO_COMP = 'Completado';
-    public const ESTADO_CURS = 'En curso';
+    public const ESTADO_PDTE = 'pendiente';
 
     public function __construct()
     {  
@@ -27,7 +25,7 @@ class TaskJsonModel{
     public function getDateFormat($date)
     {
         $date = new DateTime($date);
-        return $date->format('Y-m-d H:i:s');
+        return $date->format('Y-m-d');
     }
 
     public function saveTask($task): void
@@ -71,29 +69,19 @@ class TaskJsonModel{
 
     public function updateTask($allUsers, $user)
     {
-        $this->op = $_GET['op'];
-        $this->user = $user;
-        $this->titulo = $_GET['titulo'];
-        $this->descripcion = $_GET['descripcion'];
-        $this->estado = $_GET['estado'];
-        $this->fec_fintarea = $_GET['fec_fintarea'];
-
         $key  = array_search($user['idTareas'], array_column($allUsers, 'idTareas'));
-        $allUsers[$key]['titulo'] = $this->titulo;
-        $allUsers[$key]['descripcion'] = $this->descripcion;
-        $allUsers[$key]['estado'] = $this->estado;
-        $allUsers[$key]['fec_fintarea'] = $this->fec_fintarea;
+        $allUsers[$key]['titulo']       = $_GET['titulo'];
+        $allUsers[$key]['descripcion']  = $_GET['descripcion'];
+        $allUsers[$key]['estado']       = $_GET['estado'];
+        $allUsers[$key]['fec_fintarea'] = $_GET['fec_fintarea'];
 
         $this->saveFile($allUsers);
     }
 
     public function changeStatusTask($allUsers, $user, $status)
     {
-        $this->user = $user;
-        $this->estado = $status;
-
         $key  = array_search($user['idTareas'], array_column($allUsers, 'idTareas'));
-        $allUsers[$key]['estado'] = $this->estado;
+        $allUsers[$key]['estado'] = $status;
 
         $this->saveFile($allUsers);
     }

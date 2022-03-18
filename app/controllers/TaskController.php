@@ -16,24 +16,17 @@ class TaskController extends ApplicationController
     {
         if (!empty($_POST['task']) || !empty($_POST['user'])) {
 
-            // Recoger los valores de los campos
-            $taskTitle = $_POST['task'];
-            $description = $_POST['description'];
-            $user = $_POST['user'];
-            $dateStart = $_POST['dateStart'];
-            $dateEnd = $_POST['dateEnd'];
-
-            // Validar la información contra bd o js
+            // Recogemos los valores y lo guardamos en un obj stdClass
             $task = new stdClass();
-            $taskJsonModel = new TaskJsonModel(); 
+            $taskJsonModel  = new TaskJsonModel();
             $task->idTareas = $taskJsonModel->generateUuid();
-            $task->usuario = $user;
-            $task->titulo = $taskTitle;
-            $task->descripcion = $description;
-            $task->estado = TaskJsonModel::ESTADO_PDTE;            
-            $task->fec_creacion = $taskJsonModel->getDateFormat($dateStart);
-            $task->fec_modif = "";
-            $task->fec_fintarea = $taskJsonModel->getDateFormat($dateEnd);
+            $task->usuario  = $_POST['user'];
+            $task->titulo   = $_POST['task'];
+            $task->descripcion = $_POST['description'];
+            $task->estado       = TaskJsonModel::ESTADO_PDTE;
+            $task->fec_creacion = $taskJsonModel->getDateFormat($_POST['dateStart']);
+            $task->fec_modif    = $taskJsonModel->getDateFormat(date('Y-m-d'));
+            $task->fec_fintarea = $taskJsonModel->getDateFormat($_POST['dateEnd']);
 
             // Guardamos la task
             $taskJsonModel->saveTask($task);     
