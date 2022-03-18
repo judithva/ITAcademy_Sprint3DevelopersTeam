@@ -56,16 +56,23 @@ class TaskController extends ApplicationController
         $this->view->showtask = $taskJsonModel->listAllTask();
     }
 
-    public function updateTaskAction()
-    {
+    public function updatetaskAction(){
         $id = $_GET['id'];
         $user = $this->getTask($id);
         $this->view->updatetask = $user;
     }
+    public function update($id)
+    {
+        $user = $this->getTask($id);
+        $taskJsonModel = new TaskJsonModel(); 
+        $allUsers = $taskJsonModel->listAllTask();
+        $taskJsonModel->updateTask($allUsers, $user);  
+    }
 
-    public function changestatus($status)
+    public function changestatus()
     {
         $id = $_GET['id'];
+        $status = $_GET['estado'];
         $user = $this->getTask($id);
         $taskJsonModel = new TaskJsonModel();     
         $allUsers = $taskJsonModel->listAllTask();  
@@ -88,18 +95,12 @@ class TaskController extends ApplicationController
                     $this->createTaskAction();
                     break;
                 case "changestatus":
-                    $status = $_GET['estado'];
-                    $user = $this->getTask($id);
-                    $taskJsonModel = new TaskJsonModel();       
-                    $allUsers = $taskJsonModel->listAllTask();
-                    $taskJsonModel->changeStatusTask($allUsers, $user, $status);
+                    //Cambiamos el estado de la tarea
+                    $this->changestatus();
                     break;
                 case "update":
                     //Actualizamos registro según los datos obtenidos
-                    $user = $this->getTask($id);
-                    $taskJsonModel = new TaskJsonModel(); 
-                    $allUsers = $taskJsonModel->listAllTask();
-                    $taskJsonModel->updateTask($allUsers, $user);                    
+                    $this->update($id);                  
                     break;
                 case 'delete':
                       $this->deleteTaskAction($id);

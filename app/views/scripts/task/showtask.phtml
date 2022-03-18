@@ -4,7 +4,7 @@ include(ROOT_PATH . '/app/views/header.php');
 
 <!-- INI Codigo HTML -->
 <div class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-2xl w-full space-y-8">
+    <div class="max-w-50xl w-full space-y-8">
       <div>
         <img class="mx-auto h-20 w-auto" src="./images/roosterTodo.png" alt="Workflow">
         <h1 class="mt-6 text-center text-4xl font-extrabold text-red-600">Rooster ToDo</h1>
@@ -20,7 +20,7 @@ include(ROOT_PATH . '/app/views/header.php');
                         <td class="px-4 py-3">Usuario</td> 
                         <td class="px-4 py-3">Título</td>
                         <td class="px-4 py-3">Estado</td>
-                        <td class="px-4 py-3">Fecha</td>
+                        <td class="px-4 py-3">Finaliza</td>
                         <td class="px-4 py-3">Editar</td>
                         <td class="px-4 py-3">Acciones</td>
                     </tr>
@@ -41,8 +41,16 @@ include(ROOT_PATH . '/app/views/header.php');
                   <td class="px-4 py-3">
                       <div class="flex items-center text-sm">
                           <div>                              
-                              <p class="font-semibold"><?= $value['titulo'] ?> </p>
-                              <p class="text-xs text-gray-600 dark:text-gray-400"><?= $value['descripcion'] ?> </p>
+                              <p class="font-semibold">
+                                <a href="updatetask?<?= "id" . "=". $value['idTareas'] ?>" style="display: inline-block">
+                                  <?= $value['titulo'] ?>
+                                </a>
+                              </p>
+                              <p class="text-xs text-gray-600 dark:text-gray-400">
+                                <a href="updatetask?<?= "id" . "=". $value['idTareas'] ?>" style="display: inline-block">
+                                  <?= $value['descripcion'] ?> 
+                                </a>
+                              </p>
                           </div>
                       </div>
                   </td>
@@ -50,13 +58,13 @@ include(ROOT_PATH . '/app/views/header.php');
                     <?php
                     switch ($value['estado'])
                     {
-                      case 'En curso':
+                      case 'en curso':
                         $colorStatus = 'amber';
                         break;
-                      case 'Completado':
+                      case 'completado':
                         $colorStatus = 'lime';
                         break;
-                      case 'Pendiente':
+                      case 'pendiente':
                         $colorStatus = 'red';
                         break;
                       default:
@@ -65,7 +73,7 @@ include(ROOT_PATH . '/app/views/header.php');
                     ?>
                     <span class="inline-flex px-2 text-xs font-medium leading-5 rounded-full text-<?=$colorStatus?>-300 bg-<?=$colorStatus?>-600"><?= $value['estado'] ?> </span>
                   </td>
-                  <td class="px-4 py-3"><span class="text-sm"><?= $value['fec_creacion'] ?> </span></td>
+                  <td class="px-4 py-3 w17per"><span class="text-sm"><?= $value['fec_fintarea'] ?> </span></td>
                   <td class="px-4 py-3 w10per">
                     <!-- Editar Tarea -->
                     <a href="updatetask?<?= "id" . "=". $value['idTareas'] ?>" style="display: inline-block">
@@ -75,13 +83,13 @@ include(ROOT_PATH . '/app/views/header.php');
                     </a>
                   </td>
                   <td class="px-4 py-3 w17per">
-                  <a href="showtask?op=changestatus&estado=En curso&id=<?= $value['idTareas'] ?>" style="display: inline-block">
+                  <a href="showtask?op=changestatus&estado=en curso&id=<?= $value['idTareas'] ?>" style="display: inline-block">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-amber-600" viewBox="0 0 20 20" fill="currentColor">
                       <path fill-rule="evenodd" d="M10.293 15.707a1 1 0 010-1.414L14.586 10l-4.293-4.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                       <path fill-rule="evenodd" d="M4.293 15.707a1 1 0 010-1.414L8.586 10 4.293 5.707a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                     </svg>
                   </a>
-                    <a href="showtask?op=changestatus&estado=Completado&id=<?= $value['idTareas'] ?>" style="display: inline-block">
+                    <a href="showtask?op=changestatus&estado=completado&id=<?= $value['idTareas'] ?>" style="display: inline-block">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-lime-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>

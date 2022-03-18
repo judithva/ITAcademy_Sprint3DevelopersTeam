@@ -34,9 +34,13 @@ $theTask = $this->_data['updatetask'];
             <select name="estado" id="estado" class="block w-full text-sm dark:text-gray-300 form-textarea focus:outline-none focus:border-purple-400 dark:border-gray-600 dark:focus:border-gray-600 dark:bg-gray-700 dark:focus:shadow-outline-gray focus:shadow-outline-purple mt-1">
             <?php
             //Obtenemos todos los estados disponibles
-            $estados = ['Pendiente', 'En curso', 'Completado'];
+            $estados = ['pendiente', 'en curso', 'completado'];
             foreach ($estados as $estado){
-              echo '<option value="'.$estado.'" selected="'. $theTask['estado'] .'">'.$estado.'</option>';
+              if($estado == $theTask['estado']){
+                echo '<option value="'.$estado.'" selected="'. $estado .'">'.$estado.'</option>';  
+              }else{
+                echo '<option value="'.$estado.'">'.$estado.'</option>';
+              }
             }
             
             ?>
